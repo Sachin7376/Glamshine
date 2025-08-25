@@ -2,30 +2,33 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const path = require('path'); // Path module import karein
+const path = require('path');
 
 const app = express();
-const port = 3000;
+// Port ko Render environment se lein, agar available ho
+const port = process.env.PORT || 3000;
 
 // Middleware
-// Yeh CORS ko enable karta hai taki frontend code is server se request bhej sake
 app.use(cors()); 
-// JSON request bodies ko parse karne ke liye
 app.use(express.json()); 
-// Frontend files ko serve karne ke liye
-// Yeh middleware 'glamshine.html' file ko serve karega
 app.use(express.static(path.join(__dirname, '')));
 
 // MongoDB se connect karein
-// IMPORTANT: Humne database ka naam badal diya hai!
-const mongoURI = 'mongodb://localhost:27017/glamshine_test_db';
+// Environment variable se connection string lein
+const mongoURI = process.env.MONGO_URI;
+
+// Check karein ki MONGO_URI define hai ya nahi
+if (!mongoURI) {
+    console.error('MONGO_URI is not defined. Please set it as an environment variable.');
+    process.exit(1);
+}
 
 mongoose.connect(mongoURI)
     .then(() => console.log('MongoDB se connect ho gaya!'))
     .catch(err => console.error('MongoDB connection error:', err));
 
 // MongoDB schemas aur models define karein
-// Har form ke liye ek alag schema aur model banayenge
+// (Baaki ka code same rahega)
 const appointmentSchema = new mongoose.Schema({
     fullName: String,
     phone: String,
@@ -53,10 +56,6 @@ const Appointment = mongoose.model('Appointment', appointmentSchema);
 const Feedback = mongoose.model('Feedback', feedbackSchema);
 const ContactMessage = mongoose.model('ContactMessage', contactMessageSchema);
 
-// Backend ke liye API endpoints banayein
-// Yeh woh routes hain jahan frontend data bhejega
-
-// Appointment form ke liye route
 app.post('/api/appointments', async (req, res) => {
     try {
         const newAppointment = new Appointment(req.body);
@@ -68,7 +67,6 @@ app.post('/api/appointments', async (req, res) => {
     }
 });
 
-// Feedback form ke liye route
 app.post('/api/feedback', async (req, res) => {
     try {
         const newFeedback = new Feedback(req.body);
@@ -80,7 +78,6 @@ app.post('/api/feedback', async (req, res) => {
     }
 });
 
-// Contact form ke liye route
 app.post('/api/contact', async (req, res) => {
     try {
         const newContactMessage = new ContactMessage(req.body);
@@ -92,7 +89,6 @@ app.post('/api/contact', async (req, res) => {
     }
 });
 
-// Root URL '/' par GET request ko handle karein aur glamshine.html serve karein
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'glamshine.html'));
 });
