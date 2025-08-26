@@ -745,31 +745,30 @@
     </footer>
 
     <script>
-        // Form submission ke liye helper function
+        // Helper function for form submission
         async function submitFormData(url, formData, successMessage, errorMessage) {
             try {
-                const response = await fetch('https://glamshine.onrender.com/api/appointments', {
+                const response = await fetch(url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(formData)
-                })
-                    ;
+                });
 
                 if (response.ok) {
-                    // Response theek hai to success message dikhayein
+                    // Show success message
                     alert(successMessage);
                     return true;
                 } else {
-                    // Response theek nahi hai to error message dikhayein
+                    // Show error message from server
                     const errorData = await response.json();
                     alert(`${errorMessage}: ${errorData.message}`);
                     return false;
                 }
             } catch (error) {
-                // Network ya server se judne mein error
-                alert(`${errorMessage}: Server se judne mein dikkat.`);
+                // Network or server connection error
+                alert(`${errorMessage}: Problem connecting to the server.`);
                 console.error('Submission error:', error);
                 return false;
             }
@@ -790,12 +789,12 @@
             const success = await submitFormData(
                 'https://glamshine.onrender.com/api/appointments',
                 formData,
-                'Appointment safalta purvak book ho gaya!',
-                'Appointment book karne mein error hua'
+                'Appointment booked successfully!',
+                'Error booking appointment'
             );
 
             if (success) {
-                form.reset(); // Safalta purvak submit hone par form ko reset karein
+                form.reset(); // Reset the form after successful submission
             }
         }
 
@@ -812,8 +811,8 @@
             const success = await submitFormData(
                 'https://glamshine.onrender.com/api/feedbacks',
                 formData,
-                'Feedback safalta purvak submit ho gaya!',
-                'Feedback submit karne mein error hua'
+                'Feedback submitted successfully!',
+                'Error submitting feedback'
             );
 
             if (success) {
@@ -834,14 +833,17 @@
             const success = await submitFormData(
                 'https://glamshine.onrender.com/api/contactmessages',
                 formData,
-                'Message safalta purvak bhej diya gaya!',
-                'Message bhejane mein error hua'
+                'Message sent successfully!',
+                'Error sending message'
             );
 
             if (success) {
                 form.reset();
             }
         }
+
+
+
 
         // --- Dynamic Page Navigation ---
         // Saare pages ko hide karke ek specific page dikhane ke liye function
