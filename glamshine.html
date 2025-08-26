@@ -748,7 +748,7 @@
         // Form submission ke liye helper function
         async function submitFormData(url, formData, successMessage, errorMessage) {
             try {
-                const response = await fetch('https://glamshine.onrender.com/api/appointments', {
+                const response = await fetch(url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
