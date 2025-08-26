@@ -745,10 +745,6 @@
     </footer>
 
     <script>
-
-
-
-
         // Helper function for form submission
         async function submitFormData(url, formData, successMessage, errorMessage) {
             try {
@@ -780,15 +776,15 @@
             event.preventDefault();
             const form = event.target;
             const formData = {
-                fullName: form.querySelector('[name="full-name"]').value,
+                fullName: form.querySelector('[name="fullName"]').value,
                 phone: form.querySelector('[name="phone"]').value,
                 service: form.querySelector('[name="service"]').value,
-                date: form.querySelector('[name="appointment-date"]').value,
-                time: form.querySelector('[name="preferred-time"]').value
+                date: form.querySelector('[name="date"]').value,
+                time: form.querySelector('[name="time"]').value
             };
 
             const success = await submitFormData(
-                'https://glamshine.onrender.com/api/appointments',
+                '/api/appointments', // Relative URL, local aur production dono ke liye
                 formData,
                 'Appointment booked successfully!',
                 'Error booking appointment'
@@ -806,11 +802,12 @@
             const formData = {
                 name: form.querySelector('[name="name"]').value,
                 email: form.querySelector('[name="email"]').value,
-                feedback: form.querySelector('[name="feedback"]').value
+                rating: form.querySelector('[name="rating"]').value,
+                comments: form.querySelector('[name="comments"]').value
             };
 
             const success = await submitFormData(
-                'https://glamshine.onrender.com/api/feedback', // Corrected URL
+                '/api/feedbacks', // Sahi endpoint
                 formData,
                 'Feedback submitted successfully!',
                 'Error submitting feedback'
@@ -828,11 +825,12 @@
             const formData = {
                 name: form.querySelector('[name="name"]').value,
                 email: form.querySelector('[name="email"]').value,
+                subject: form.querySelector('[name="subject"]').value,
                 message: form.querySelector('[name="message"]').value
             };
 
             const success = await submitFormData(
-                'https://glamshine.onrender.com/api/contact', // Corrected URL
+                '/api/contactmessages', // Sahi endpoint
                 formData,
                 'Message sent successfully!',
                 'Error sending message'
@@ -843,12 +841,7 @@
             }
         }
 
-
-
-
-
-        // --- Dynamic Page Navigation ---
-        // Saare pages ko hide karke ek specific page dikhane ke liye function
+        // Dynamic Page Navigation
         function showPage(pageId) {
             const allPages = document.querySelectorAll('.page-section');
             allPages.forEach(page => {
@@ -860,8 +853,9 @@
             }
         }
 
-        // Saare navigation links aur buttons ke liye event listeners
+        // Event listeners for navigation and forms
         document.addEventListener('DOMContentLoaded', () => {
+            // Navigation links
             document.querySelectorAll('[data-page]').forEach(link => {
                 link.addEventListener('click', (event) => {
                     event.preventDefault();
@@ -870,26 +864,30 @@
                 });
             });
 
-            // Form listeners ko attach karein
-            const appointmentForm = document.getElementById('appointment-form');
+            // Form listeners
+            const appointmentForm = document.getElementById('appointmentForm');
             if (appointmentForm) {
                 appointmentForm.addEventListener('submit', handleAppointmentSubmit);
             }
 
-            const feedbackForm = document.getElementById('feedback-form');
+            const feedbackForm = document.getElementById('feedbackForm');
             if (feedbackForm) {
                 feedbackForm.addEventListener('submit', handleFeedbackSubmit);
             }
 
-            const contactForm = document.getElementById('contact-form');
+            const contactForm = document.getElementById('contactForm');
             if (contactForm) {
                 contactForm.addEventListener('submit', handleContactSubmit);
             }
 
-            // Shuru mein home page load karein
+            // Shuru mein home page load kar
             showPage('home-page');
         });
     </script>
+
+    <!--  matlab yaha me script ka full code paste karu batoge  -->
+
+
 </body>
 
 </html>
