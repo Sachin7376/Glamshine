@@ -1,382 +1,893 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GlamShine Beauty Parlour</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <style>
-    /* ... (your existing CSS unchanged) ... */
-    /* I kept your full CSS as-is for brevity */
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlamShine Beauty Parlour</title>
+    <!-- Font Awesome for social media icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* --- Global Styles --- */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            color: #444;
+            background-color: #f8f0f8;
+            /* A soft background */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- Navbar Styles --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-logo a {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #b76e79;
+            /* Rose Gold */
+            text-decoration: none;
+        }
+
+        .navbar-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-links a:hover {
+            color: #b76e79;
+        }
+
+        .book-button {
+            background-color: #b76e79;
+            color: white !important;
+            padding: 8px 16px;
+            border-radius: 50px;
+            transition: background-color 0.3s ease;
+        }
+
+        .book-button:hover {
+            background-color: #a35d68;
+        }
+
+        /* --- Hero Section (The "name section") --- */
+        #hero {
+            background: linear-gradient(to right, #fcefee, #ffe9f2, #f7e0fc);
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #4B0082;
+            padding: 0 20px;
+        }
+
+        .hero-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #6a0dad;
+        }
+
+        .hero-text button {
+            padding: 10px 20px;
+            background-color: #b76e79;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .hero-text button:hover {
+            background-color: #a35d68;
+        }
+
+        /* --- General Section Styles --- */
+        .page-section {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .subheading {
+            font-style: italic;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        /* --- Services Section on Home Page --- */
+        #home-services {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        #home-services h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        #home-services .services-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .service-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            width: 200px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .service-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .service-card h3 {
+            margin: 0;
+        }
+
+        /* --- Pricing Section --- */
+        #pricing-page .pricing-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .package-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            width: 300px;
+            transition: transform 0.3s ease;
+        }
+
+        .package-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .package-card h3 {
+            color: #b76e79;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .package-card ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .package-card li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .price-tag {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #800080;
+            margin-bottom: 20px;
+        }
+
+        .book-now-btn {
+            padding: 12px 24px;
+            background-color: #800080;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        /* --- Gallery Section --- */
+        #gallery-page .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item img:hover {
+            transform: scale(1.03);
+        }
+
+        /* --- Contact Section --- */
+        #contact-page .contact-container {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            text-align: left;
+            max-width: 1000px;
+            margin: auto;
+            flex-wrap: wrap;
+        }
+
+        .contact-info,
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .info-item span {
+            font-size: 1.5rem;
+        }
+
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .contact-form button {
+            background-color: #b76e79;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .map-container {
+            margin-top: 50px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feedback-form {
+            margin-top: 40px;
+        }
+
+        .feedback-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .feedback-form form input,
+        .feedback-form form textarea {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .feedback-form button {
+            background-color: #b76e79;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* --- Appointment Form Styles --- */
+        .appointment-form {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .appointment-form h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #b76e79;
+        }
+
+        .appointment-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .appointment-form input,
+        .appointment-form select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        /* --- Footer Styles --- */
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 40px 20px;
+        }
+
+        .footer .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .footer-section {
+            flex-basis: 25%;
+            min-width: 200px;
+        }
+
+        .footer-section h4 {
+            color: #b76e79;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul a:hover {
+            color: white;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 15px;
+            text-decoration: none;
+        }
+
+        /* --- Mobile Responsiveness (Updated for Services Section) --- */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 10px 20px;
+            }
+
+            .navbar-links {
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 10px;
+            }
+
+            .page-section {
+                padding: 30px 20px;
+            }
+
+            #contact-page .contact-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .footer-section {
+                flex-basis: 100%;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-text p {
+                font-size: 1rem;
+            }
+
+            /* Responsive changes for 'Our Services' section */
+            #home-services .services-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .service-card {
+                width: 80%;
+            }
+        }
+    </style>
 </head>
+
 <body>
-  <!-- Navigation Bar -->
-  <nav class="navbar">
-    <div class="navbar-logo">
-      <a href="#" data-page="home-page">GlamShine</a>
-    </div>
-    <ul class="navbar-links">
-      <li><a href="#" class="nav-link" data-page="home-page">Home</a></li>
-      <li><a href="#" class="nav-link" data-page="services-page">Services</a></li>
-      <li><a href="#" class="nav-link" data-page="pricing-page">Pricing</a></li>
-      <li><a href="#" class="nav-link" data-page="gallery-page">Gallery</a></li>
-      <li><a href="#" class="nav-link" data-page="testimonials-page">Testimonials</a></li>
-      <li><a href="#" class="nav-link" data-page="contact-page">Contact</a></li>
-      <li><a href="#" class="book-button" data-page="book-appointment-page">Book Now</a></li>
-    </ul>
-  </nav>
 
-  <!-- Page Content Container -->
-  <div id="page-content">
-    <!-- Home Page -->
-    <div id="home-page" class="page-section" style="display:block;">
-      <section id="hero">
-        <div class="hero-text">
-          <h1>GlamShine Beauty Parlour</h1>
-          <p>Redefining Beauty, Naturally</p>
-          <button class="book-button" data-page="book-appointment-page">Book Now</button>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <a href="#" data-page="home-page">GlamShine</a>
         </div>
-      </section>
-
-      <section id="home-services">
-        <h2>Our Services</h2>
-        <div class="services-grid">
-          <div class="service-card">
-            <span class="service-icon">💇‍♀️</span>
-            <h3>Hair</h3>
-            <p>$50</p>
-            <button class="book-now-card book-button" data-page="book-appointment-page">Book Now</button>
-          </div>
-          <div class="service-card">
-            <span class="service-icon">🧴</span>
-            <h3>Skin</h3>
-            <p>$40</p>
-            <button class="book-now-card book-button" data-page="book-appointment-page">Book Now</button>
-          </div>
-          <div class="service-card">
-            <span class="service-icon">💄</span>
-            <h3>Makeup</h3>
-            <p>$60</p>
-            <button class="book-now-card book-button" data-page="book-appointment-page">Book Now</button>
-          </div>
-          <div class="service-card">
-            <span class="service-icon">💅</span>
-            <h3>Nails</h3>
-            <p>$30</p>
-            <button class="book-now-card book-button" data-page="book-appointment-page">Book Now</button>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- Services -->
-    <section id="services-page" class="page-section" style="display:none;">
-      <h2>Our Services</h2>
-      <div class="services-grid">
-        <div class="service-card">
-          <span class="service-icon">💇‍♀️</span>
-          <h3>Hair</h3>
-          <p>Styling, Coloring, Cuts & more.</p>
-          <button class="book-now-card book-button" data-page="book-appointment-page">Book Now</button>
-        </div>
-        <div class="service-card">
-          <span class="service-icon">🧴</span>
-          <h3>Skin</h3>
-          <p>Facials, Cleanup, & Rejuvenation.</p>
-          <button class="book-now-card book-button" data-page="book-appointment-page">Book Now</button>
-        </div>
-        <div class="service-card">
-          <span class="service-icon">💄</span>
-          <h3>Makeup</h3>
-          <p>Party, Bridal, & Professional looks.</p>
-          <button class="book-now-card book-button" data-page="book-appointment-page">Book Now</button>
-        </div>
-        <div class="service-card">
-          <span class="service-icon">💅</span>
-          <h3>Nails</h3>
-          <p>Manicure, Pedicure, & Nail art.</p>
-          <button class="book-now-card book-button" data-page="book-appointment-page">Book Now</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Pricing -->
-    <section id="pricing-page" class="page-section" style="display:none;">
-      <h2>Pricing & Packages</h2>
-      <p class="subheading">Find the perfect service to fit your needs.</p>
-      <div class="pricing-grid">
-        <div class="package-card">
-          <h3>Basic Package</h3>
-          <ul>
-            <li>Haircut & Wash</li>
-            <li>Manicure</li>
-          </ul>
-          <p class="price-tag">$49</p>
-          <button class="book-now-btn book-button" data-page="book-appointment-page">Book Now</button>
-        </div>
-        <div class="package-card">
-          <h3>Bridal Glow</h3>
-          <ul>
-            <li>Bridal Makeup</li>
-            <li>Hairstyling</li>
-            <li>Full Facial</li>
-          </ul>
-          <p class="price-tag">$299</p>
-          <button class="book-now-btn book-button" data-page="book-appointment-page">Book Now</button>
-        </div>
-        <div class="package-card">
-          <h3>The Ultimate</h3>
-          <ul>
-            <li>Full Body Spa</li>
-            <li>Facial</li>
-            <li>Hair Styling</li>
-            <li>Manicure & Pedicure</li>
-          </ul>
-          <p class="price-tag">$149</p>
-          <button class="book-now-btn book-button" data-page="book-appointment-page">Book Now</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Gallery -->
-    <section id="gallery-page" class="page-section" style="display:none;">
-      <h2>Our Work</h2>
-      <p class="subheading">A glimpse into the beautiful transformations we create.</p>
-      <div class="gallery-grid">
-        <div class="gallery-item"><img src="https://placehold.co/400x300/e9d5e9/800080?text=Hairstyling" alt="Hairstyling"></div>
-        <div class="gallery-item"><img src="https://placehold.co/400x300/ffb6c1/800080?text=Makeup" alt="Makeup"></div>
-        <div class="gallery-item"><img src="https://placehold.co/400x300/f08080/FFFFFF?text=Manicure" alt="Manicure"></div>
-        <div class="gallery-item"><img src="https://placehold.co/400x300/ffc0cb/800080?text=Skincare" alt="Skincare"></div>
-        <div class="gallery-item"><img src="https://placehold.co/400x300/d8bfd8/800080?text=Bridal+Makeup" alt="Bridal Makeup"></div>
-        <div class="gallery-item"><img src="https://placehold.co/400x300/e6e6fa/800080?text=Before+and+After" alt="Before and After"></div>
-      </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact-page" class="page-section" style="display:none;">
-      <h2>Contact Us</h2>
-      <div class="contact-container">
-        <div class="contact-info">
-          <h3>Get in Touch</h3>
-          <p>We'd love to hear from you! Reach out to us for appointments or any questions you may have.</p>
-          <div class="info-item"><span>📞</span><p>+91 98765 43210</p></div>
-          <div class="info-item"><span>📍</span><p>123 Beauty Street, City, State, 12345</p></div>
-          <div class="info-item"><span>📧</span><p>info@glamshinebeauty.com</p></div>
-        </div>
-
-        <div class="contact-form">
-          <h3>Send Us a Message</h3>
-          <!-- ✅ Fixed ID + added subject for backend -->
-          <form id="contactForm">
-            <input type="text" name="name" placeholder="Your Name" required />
-            <input type="email" name="email" placeholder="Your Email" required />
-            <input type="text" name="subject" placeholder="Subject" required />
-            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-            <button type="submit">Send Message</button>
-          </form>
-        </div>
-      </div>
-
-      <div class="map-container">
-        <iframe title="GlamShine Location"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15226.791544990978!2d78.47190015!3d17.43094855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9a75267b2e8d%3A0xf639a06c88820c75!2sHitech+City%2C+Hyderabad%2C+Telangana!5e0!3m2!1sen!2sin!4v1629891822830!5m2!1sen!2sin"
-          width="100%" height="450" style="border:0;" allowfullscreen loading="lazy"></iframe>
-      </div>
-
-      <div class="feedback-form">
-        <h2>Feedback Form</h2>
-        <!-- ✅ Fixed ID + fields aligned to backend -->
-        <form id="feedbackForm">
-          <input type="text" name="name" placeholder="Your Name" required />
-          <input type="email" name="email" placeholder="Your Email" required />
-          <select name="rating" required>
-            <option value="">Rating</option>
-            <option value="1">1 - Poor</option>
-            <option value="2">2 - Fair</option>
-            <option value="3">3 - Good</option>
-            <option value="4">4 - Very Good</option>
-            <option value="5">5 - Excellent</option>
-          </select>
-          <textarea name="comments" placeholder="Your Feedback" rows="5" required></textarea>
-          <button type="submit">Submit Feedback</button>
-        </form>
-      </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section id="testimonials-page" class="page-section" style="display:none;">
-      <h2>What Our Clients Say</h2>
-      <div class="testimonial-cards">
-        <div class="testimonial-card">
-          <p>"The best salon experience I've ever had! My hair looks amazing."</p>
-          <h4>- Anjali Sharma</h4>
-        </div>
-        <div class="testimonial-card">
-          <p>"Highly professional and hygienic. I feel so refreshed and beautiful."</p>
-          <h4>- Priya Singh</h4>
-        </div>
-      </div>
-    </section>
-
-    <!-- Book Appointment -->
-    <section id="book-appointment-page" class="page-section" style="display:none;">
-      <h2>Book an Appointment</h2>
-      <div class="appointment-form">
-        <!-- ✅ Fixed ID + names aligned to JS/backend -->
-        <form id="appointmentForm">
-          <label for="full-name">Full Name:</label>
-          <input type="text" id="full-name" name="fullName" required>
-
-          <label for="phone-number">Phone Number:</label>
-          <input type="tel" id="phone-number" name="phone" required>
-
-          <label for="service">Service:</label>
-          <select id="service" name="service" required>
-            <option value="">Select a service</option>
-            <option value="Haircut">Haircut</option>
-            <option value="Facial">Facial</option>
-            <option value="Manicure">Manicure</option>
-            <option value="Makeup">Makeup</option>
-          </select>
-
-          <label for="appointment-date">Appointment Date:</label>
-          <input type="date" id="appointment-date" name="date" required>
-
-          <label for="preferred-time">Preferred Time:</label>
-          <input type="time" id="preferred-time" name="time" required>
-
-          <button type="submit">Book Appointment</button>
-        </form>
-      </div>
-    </section>
-  </div>
-
-  <!-- Footer (unchanged) -->
-  <footer class="footer">
-    <div class="footer-container">
-      <div class="footer-section">
-        <h4>GlamShine</h4>
-        <p>Redefining beauty, naturally. We are dedicated to providing the best beauty services with a personal touch.</p>
-      </div>
-      <div class="footer-section">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="#" data-page="home-page">Home</a></li>
-          <li><a href="#" data-page="services-page">Services</a></li>
-          <li><a href="#" data-page="pricing-page">Pricing</a></li>
-          <li><a href="#" data-page="contact-page">Contact</a></li>
+        <ul class="navbar-links">
+            <li><a href="#" class="nav-link" data-page="home-page">Home</a></li>
+            <li><a href="#" class="nav-link" data-page="services-page">Services</a></li>
+            <li><a href="#" class="nav-link" data-page="pricing-page">Pricing</a></li>
+            <li><a href="#" class="nav-link" data-page="gallery-page">Gallery</a></li>
+            <li><a href="#" class="nav-link" data-page="testimonials-page">Testimonials</a></li>
+            <li><a href="#" class="nav-link" data-page="contact-page">Contact</a></li>
+            <li><a href="#" class="book-button" data-page="book-appointment-page">Book Now</a></li>
         </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Customer Service</h4>
-        <ul>
-          <li><a href="#">FAQs</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Follow Us</h4>
-        <div class="social-icons">
-          <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-          <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-          <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+    </nav>
+
+    <!-- Page Content Container -->
+    <div id="page-content">
+        <!-- Home Page Content -->
+        <div id="home-page" class="page-section" style="display: block;">
+            <!-- Hero Section (The "name section") -->
+            <section id="hero">
+                <div class="hero-text">
+                    <h1>GlamShine Beauty Parlour</h1>
+                    <p>Redefining Beauty, Naturally</p>
+                    <button class="book-button" data-page="book-appointment-page">Book Now</button>
+                </div>
+            </section>
+
+            <!-- Services Section on Home Page -->
+            <section id="home-services">
+                <h2>Our Services</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <span class="service-icon">💇‍♀️</span>
+                        <h3>Hair</h3>
+                        <p>$50</p>
+                        <button class="book-now-card book-button" data-page="book-appointment-page">Book Now</button>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-icon">🧴</span>
+                        <h3>Skin</h3>
+                        <p>$40</p>
+                        <button class="book-now-card book-button" data-page="book-appointment-page">Book Now</button>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-icon">💄</span>
+                        <h3>Makeup</h3>
+                        <p>$60</p>
+                        <button class="book-now-card book-button" data-page="book-appointment-page">Book Now</button>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-icon">💅</span>
+                        <h3>Nails</h3>
+                        <p>$30</p>
+                        <button class="book-now-card book-button" data-page="book-appointment-page">Book Now</button>
+                    </div>
+                </div>
+            </section>
         </div>
-      </div>
+
+        <!-- Services Page Content -->
+        <section id="services-page" class="page-section" style="display: none;">
+            <h2>Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <span class="service-icon">💇‍♀️</span>
+                    <h3>Hair</h3>
+                    <p>Styling, Coloring, Cuts & more.</p>
+                    <button class="book-now-card book-button" data-page="book-appointment-page">Book Now</button>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">🧴</span>
+                    <h3>Skin</h3>
+                    <p>Facials, Cleanup, & Rejuvenation.</p>
+                    <button class="book-now-card book-button" data-page="book-appointment-page">Book Now</button>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">💄</span>
+                    <h3>Makeup</h3>
+                    <p>Party, Bridal, & Professional looks.</p>
+                    <button class="book-now-card book-button" data-page="book-appointment-page">Book Now</button>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">💅</span>
+                    <h3>Nails</h3>
+                    <p>Manicure, Pedicure, & Nail art.</p>
+                    <button class="book-now-card book-button" data-page="book-appointment-page">Book Now</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Page Content -->
+        <section id="pricing-page" class="page-section" style="display: none;">
+            <h2>Pricing & Packages</h2>
+            <p class="subheading">Find the perfect service to fit your needs.</p>
+            <div class="pricing-grid">
+                <div class="package-card">
+                    <h3>Basic Package</h3>
+                    <ul>
+                        <li>Haircut & Wash</li>
+                        <li>Manicure</li>
+                    </ul>
+                    <p class="price-tag">$49</p>
+                    <button class="book-now-btn book-button" data-page="book-appointment-page">Book Now</button>
+                </div>
+                <div class="package-card">
+                    <h3>Bridal Glow</h3>
+                    <ul>
+                        <li>Bridal Makeup</li>
+                        <li>Hairstyling</li>
+                        <li>Full Facial</li>
+                    </ul>
+                    <p class="price-tag">$299</p>
+                    <button class="book-now-btn book-button" data-page="book-appointment-page">Book Now</button>
+                </div>
+                <div class="package-card">
+                    <h3>The Ultimate</h3>
+                    <ul>
+                        <li>Full Body Spa</li>
+                        <li>Facial</li>
+                        <li>Hair Styling</li>
+                        <li>Manicure & Pedicure</li>
+                    </ul>
+                    <p class="price-tag">$149</p>
+                    <button class="book-now-btn book-button" data-page="book-appointment-page">Book Now</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Page Content -->
+        <section id="gallery-page" class="page-section" style="display: none;">
+            <h2>Our Work</h2>
+            <p class="subheading">A glimpse into the beautiful transformations we create.</p>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="https://placehold.co/400x300/e9d5e9/800080?text=Hairstyling"
+                        alt="Hairstyling"></div>
+                <div class="gallery-item"><img src="https://placehold.co/400x300/ffb6c1/800080?text=Makeup"
+                        alt="Makeup"></div>
+                <div class="gallery-item"><img src="https://placehold.co/400x300/f08080/FFFFFF?text=Manicure"
+                        alt="Manicure"></div>
+                <div class="gallery-item"><img src="https://placehold.co/400x300/ffc0cb/800080?text=Skincare"
+                        alt="Skincare"></div>
+                <div class="gallery-item"><img src="https://placehold.co/400x300/d8bfd8/800080?text=Bridal+Makeup"
+                        alt="Bridal Makeup"></div>
+                <div class="gallery-item"><img src="https://placehold.co/400x300/e6e6fa/800080?text=Before+and+After"
+                        alt="Before and After"></div>
+            </div>
+        </section>
+
+        <!-- Contact Page Content -->
+        <section id="contact-page" class="page-section" style="display: none;">
+            <h2>Contact Us</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <p>We'd love to hear from you! Reach out to us for appointments or any questions you may have.</p>
+                    <div class="info-item">
+                        <span>📞</span>
+                        <p>+91 98765 43210</p>
+                    </div>
+                    <div class="info-item">
+                        <span>📍</span>
+                        <p>123 Beauty Street, City, State, 12345</p>
+                    </div>
+                    <div class="info-item">
+                        <span>📧</span>
+                        <p>info@glamshinebeauty.com</p>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Send Us a Message</h3>
+                    <!-- Contact Form ko ek ID di gayi hai -->
+                    <form id="contact-form">
+                        <input type="text" name="name" placeholder="Your Name" required />
+                        <input type="email" name="email" placeholder="Your Email" required />
+                        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                        <button type="submit">Send Message</button>
+                    </form>
+                </div>
+            </div>
+            <div class="map-container">
+                <iframe title="GlamShine Location"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15226.791544990978!2d78.47190015!3d17.43094855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9a75267b2e8d%3A0xf639a06c88820c75!2sHitech+City%2C+Hyderabad%2C+Telangana!5e0!3m2!1sen!2sin!4v1629891822830!5m2!1sen!2sin"
+                    width="100%" height="450" style="border: 0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="feedback-form">
+                <h2>Feedback Form</h2>
+                <form id="feedback-form">
+                    <input type="text" name="name" placeholder="Your Name" required />
+                    <input type="email" name="email" placeholder="Your Email" required />
+                    <textarea name="feedback" placeholder="Your Feedback" rows="5" required></textarea>
+                    <button type="submit">Submit Feedback</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Testimonials Page Content -->
+        <section id="testimonials-page" class="page-section" style="display: none;">
+            <h2>What Our Clients Say</h2>
+            <div class="testimonial-cards">
+                <div class="testimonial-card">
+                    <p>"The best salon experience I've ever had! My hair looks amazing."</p>
+                    <h4>- Anjali Sharma</h4>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Highly professional and hygienic. I feel so refreshed and beautiful."</p>
+                    <h4>- Priya Singh</h4>
+                </div>
+            </div>
+        </section>
+
+        <!-- Book Appointment Page Content -->
+        <section id="book-appointment-page" class="page-section" style="display: none;">
+            <h2>Book an Appointment</h2>
+            <div class="appointment-form">
+                <form id="appointment-form">
+                    <label for="full-name">Full Name:</label>
+                    <input type="text" id="full-name" name="full-name" required>
+
+                    <label for="phone-number">Phone Number:</label>
+                    <input type="tel" id="phone-number" name="phone" required>
+
+                    <label for="service">Service:</label>
+                    <select id="service" name="service" required>
+                        <option value="">Select a service</option>
+                        <option value="Haircut">Haircut</option>
+                        <option value="Facial">Facial</option>
+                        <option value="Manicure">Manicure</option>
+                        <option value="Makeup">Makeup</option>
+                    </select>
+
+                    <label for="appointment-date">Appointment Date:</label>
+                    <input type="date" id="appointment-date" name="appointment-date" required>
+
+                    <label for="preferred-time">Preferred Time:</label>
+                    <input type="time" id="preferred-time" name="preferred-time" required>
+
+                    <button type="submit">Book Appointment</button>
+                </form>
+            </div>
+        </section>
     </div>
-  </footer>
 
-  <script>
-    // Reusable POST helper
-    async function submitFormData(url, formData, successMessage, errorMessage) {
-      try {
-        const res = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>GlamShine</h4>
+                <p>Redefining beauty, naturally. We are dedicated to providing the best beauty services with a personal
+                    touch.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#" data-page="home-page">Home</a></li>
+                    <li><a href="#" data-page="services-page">Services</a></li>
+                    <li><a href="#" data-page="pricing-page">Pricing</a></li>
+                    <li><a href="#" data-page="contact-page">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                    <!-- Updated social media icons using Font Awesome -->
+                    <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Helper function for form submission
+        async function submitFormData(url, formData, successMessage, errorMessage) {
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    alert(successMessage);
+                    return true;
+                } else {
+                    const errorData = await response.json();
+                    alert(`${errorMessage}: ${errorData.message}`);
+                    return false;
+                }
+            } catch (error) {
+                alert(`${errorMessage}: Problem connecting to the server.`);
+                console.error('Submission error:', error);
+                return false;
+            }
+        }
+
+        // Appointment form submission
+        async function handleAppointmentSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = {
+                fullName: form.querySelector('[name="fullName"]').value,
+                phone: form.querySelector('[name="phone"]').value,
+                service: form.querySelector('[name="service"]').value,
+                date: form.querySelector('[name="date"]').value,
+                time: form.querySelector('[name="time"]').value
+            };
+
+            const success = await submitFormData(
+                '/api/appointments', // Relative URL, local aur production dono ke liye
+                formData,
+                'Appointment booked successfully!',
+                'Error booking appointment'
+            );
+
+            if (success) {
+                form.reset();
+            }
+        }
+
+        // Feedback form submission
+        async function handleFeedbackSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = {
+                name: form.querySelector('[name="name"]').value,
+                email: form.querySelector('[name="email"]').value,
+                rating: form.querySelector('[name="rating"]').value,
+                comments: form.querySelector('[name="comments"]').value
+            };
+
+            const success = await submitFormData(
+                '/api/feedbacks', // Sahi endpoint
+                formData,
+                'Feedback submitted successfully!',
+                'Error submitting feedback'
+            );
+
+            if (success) {
+                form.reset();
+            }
+        }
+
+        // Contact form submission
+        async function handleContactSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = {
+                name: form.querySelector('[name="name"]').value,
+                email: form.querySelector('[name="email"]').value,
+                subject: form.querySelector('[name="subject"]').value,
+                message: form.querySelector('[name="message"]').value
+            };
+
+            const success = await submitFormData(
+                '/api/contactmessages', // Sahi endpoint
+                formData,
+                'Message sent successfully!',
+                'Error sending message'
+            );
+
+            if (success) {
+                form.reset();
+            }
+        }
+
+        // Dynamic Page Navigation
+        function showPage(pageId) {
+            const allPages = document.querySelectorAll('.page-section');
+            allPages.forEach(page => {
+                page.style.display = 'none';
+            });
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.style.display = 'block';
+            }
+        }
+
+        // Event listeners for navigation and forms
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navigation links
+            document.querySelectorAll('[data-page]').forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const pageId = event.target.getAttribute('data-page');
+                    showPage(pageId);
+                });
+            });
+
+            // Form listeners
+            const appointmentForm = document.getElementById('appointmentForm');
+            if (appointmentForm) {
+                appointmentForm.addEventListener('submit', handleAppointmentSubmit);
+            }
+
+            const feedbackForm = document.getElementById('feedbackForm');
+            if (feedbackForm) {
+                feedbackForm.addEventListener('submit', handleFeedbackSubmit);
+            }
+
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', handleContactSubmit);
+            }
+
+            // Shuru mein home page load kar
+            showPage('home-page');
         });
-        const data = await res.json().catch(() => ({}));
-        if (!res.ok) throw new Error(data.message || 'Request failed');
-        alert(successMessage);
-        return true;
-      } catch (err) {
-        alert(`${errorMessage}: ${err.message || 'Problem connecting to server'}`);
-        console.error('Submission error:', err);
-        return false;
-      }
-    }
+    </script>
 
-    // Handlers
-    async function handleAppointmentSubmit(e) {
-      e.preventDefault();
-      const form = e.target;
-      const payload = {
-        fullName: form.fullName.value.trim(),
-        phone: form.phone.value.trim(),
-        service: form.service.value,
-        date: form.date.value,
-        time: form.time.value
-      };
-      const ok = await submitFormData('/api/appointments', payload, 'Appointment booked successfully!', 'Error booking appointment');
-      if (ok) form.reset();
-    }
+    <!--  matlab yaha me script ka full code paste karu batoge  -->
 
-    async function handleFeedbackSubmit(e) {
-      e.preventDefault();
-      const form = e.target;
-      const payload = {
-        name: form.name.value.trim(),
-        email: form.email.value.trim(),
-        rating: Number(form.rating.value),
-        comments: form.comments.value.trim()
-      };
-      const ok = await submitFormData('/api/feedbacks', payload, 'Feedback submitted successfully!', 'Error submitting feedback');
-      if (ok) form.reset();
-    }
 
-    async function handleContactSubmit(e) {
-      e.preventDefault();
-      const form = e.target;
-      const payload = {
-        name: form.name.value.trim(),
-        email: form.email.value.trim(),
-        subject: form.subject.value.trim(),
-        message: form.message.value.trim()
-      };
-      const ok = await submitFormData('/api/contactmessages', payload, 'Message sent successfully!', 'Error sending message');
-      if (ok) form.reset();
-    }
-
-    // Page navigation
-    function showPage(pageId) {
-      document.querySelectorAll('.page-section').forEach(p => (p.style.display = 'none'));
-      const el = document.getElementById(pageId);
-      if (el) el.style.display = 'block';
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      // Safe click targeting
-      document.querySelectorAll('[data-page]').forEach(el => {
-        el.addEventListener('click', (e) => {
-          e.preventDefault();
-          const target = e.currentTarget.getAttribute('data-page');
-          if (target) showPage(target);
-        });
-      });
-
-      // ✅ Correct IDs used here
-      const appointmentForm = document.getElementById('appointmentForm');
-      const feedbackForm = document.getElementById('feedbackForm');
-      const contactForm = document.getElementById('contactForm');
-
-      if (appointmentForm) appointmentForm.addEventListener('submit', handleAppointmentSubmit);
-      if (feedbackForm) feedbackForm.addEventListener('submit', handleFeedbackSubmit);
-      if (contactForm) contactForm.addEventListener('submit', handleContactSubmit);
-
-      // Default
-      showPage('home-page');
-    });
-  </script>
 </body>
+
 </html>
