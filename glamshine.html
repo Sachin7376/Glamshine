@@ -749,12 +749,14 @@
 
 
 
-        // Helper function
+        // Helper function for form submission
         async function submitFormData(url, formData, successMessage, errorMessage) {
             try {
                 const response = await fetch(url, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
                     body: JSON.stringify(formData)
                 });
 
@@ -766,14 +768,14 @@
                     alert(`${errorMessage}: ${errorData.message}`);
                     return false;
                 }
-            } catch (err) {
-                alert(`${errorMessage}: Problem connecting to server.`);
-                console.error('Submission error:', err);
+            } catch (error) {
+                alert(`${errorMessage}: Problem connecting to the server.`);
+                console.error('Submission error:', error);
                 return false;
             }
         }
 
-        // Appointment submit
+        // Appointment form submission
         async function handleAppointmentSubmit(event) {
             event.preventDefault();
             const form = event.target;
@@ -791,10 +793,13 @@
                 'Appointment booked successfully!',
                 'Error booking appointment'
             );
-            if (success) form.reset();
+
+            if (success) {
+                form.reset();
+            }
         }
 
-        // Feedback submit
+        // Feedback form submission
         async function handleFeedbackSubmit(event) {
             event.preventDefault();
             const form = event.target;
@@ -810,10 +815,13 @@
                 'Feedback submitted successfully!',
                 'Error submitting feedback'
             );
-            if (success) form.reset();
+
+            if (success) {
+                form.reset();
+            }
         }
 
-        // Contact submit
+        // Contact form submission
         async function handleContactSubmit(event) {
             event.preventDefault();
             const form = event.target;
@@ -829,9 +837,11 @@
                 'Message sent successfully!',
                 'Error sending message'
             );
-            if (success) form.reset();
-        }
 
+            if (success) {
+                form.reset();
+            }
+        }
 
 
 
