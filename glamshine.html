@@ -745,6 +745,10 @@
     </footer>
 
     <script>
+
+
+
+
         // Helper function for form submission
         async function submitFormData(url, formData, successMessage, errorMessage) {
             try {
@@ -757,17 +761,14 @@
                 });
 
                 if (response.ok) {
-                    // Show success message
                     alert(successMessage);
                     return true;
                 } else {
-                    // Show error message from server
                     const errorData = await response.json();
                     alert(`${errorMessage}: ${errorData.message}`);
                     return false;
                 }
             } catch (error) {
-                // Network or server connection error
                 alert(`${errorMessage}: Problem connecting to the server.`);
                 console.error('Submission error:', error);
                 return false;
@@ -794,7 +795,7 @@
             );
 
             if (success) {
-                form.reset(); // Reset the form after successful submission
+                form.reset();
             }
         }
 
@@ -841,6 +842,7 @@
                 form.reset();
             }
         }
+
 
 
 
