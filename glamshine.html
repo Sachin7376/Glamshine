@@ -745,31 +745,31 @@
     </footer>
 
     <script>
+
         // Form submission ke liye helper function
         async function submitFormData(url, formData, successMessage, errorMessage) {
             try {
-                const response = await fetch(url, {
+                const response = await fetch(url, { // Yahan par 'url' parameter use kiya gaya hai
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(formData)
-                })
-                    ;
+                });
 
                 if (response.ok) {
                     // Response theek hai to success message dikhayein
-                    alert(successMessage);
+                    showToastMessage(successMessage, 'success');
                     return true;
                 } else {
                     // Response theek nahi hai to error message dikhayein
                     const errorData = await response.json();
-                    alert(`${errorMessage}: ${errorData.message}`);
+                    showToastMessage(`${errorMessage}: ${errorData.message}`, 'error');
                     return false;
                 }
             } catch (error) {
                 // Network ya server se judne mein error
-                alert(`${errorMessage}: Server se judne mein dikkat.`);
+                showToastMessage(`${errorMessage}: Server se judne mein dikkat.`, 'error');
                 console.error('Submission error:', error);
                 return false;
             }
@@ -788,14 +788,14 @@
             };
 
             const success = await submitFormData(
-                'https://glamshine.onrender.com/api/appointments',
+                'https://glamshine.onrender.com/api/appointments', // Sahi URL
                 formData,
                 'Appointment safalta purvak book ho gaya!',
                 'Appointment book karne mein error hua'
             );
 
             if (success) {
-                form.reset(); // Safalta purvak submit hone par form ko reset karein
+                form.reset();
             }
         }
 
@@ -810,7 +810,7 @@
             };
 
             const success = await submitFormData(
-                'https://glamshine.onrender.com/api/feedbacks',
+                'https://glamshine.onrender.com/api/feedbacks', // Sahi URL
                 formData,
                 'Feedback safalta purvak submit ho gaya!',
                 'Feedback submit karne mein error hua'
@@ -832,7 +832,7 @@
             };
 
             const success = await submitFormData(
-                'https://glamshine.onrender.com/api/contactmessages',
+                'https://glamshine.onrender.com/api/contactmessages', // Sahi URL
                 formData,
                 'Message safalta purvak bhej diya gaya!',
                 'Message bhejane mein error hua'
@@ -843,38 +843,10 @@
             }
         }
 
-        // --- Dynamic Page Navigation ---
-        // Saare pages ko hide karke ek specific page dikhane ke liye function
-        function showPage(pageId) {
-            const allPages = document.querySelectorAll('.page-section');
-            allPages.forEach(page => {
-                page.style.display = 'none';
-            });
-            const targetPage = document.getElementById(pageId);
-            if (targetPage) {
-                targetPage.style.display = 'block';
-            }
-        }
-
-        // Saare navigation links aur buttons ke liye event listeners
         document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('[data-page]').forEach(link => {
-                link.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    const pageId = event.target.getAttribute('data-page');
-                    showPage(pageId);
-                });
-            });
-
-            // Form listeners ko attach karein
             const appointmentForm = document.getElementById('appointment-form');
             if (appointmentForm) {
                 appointmentForm.addEventListener('submit', handleAppointmentSubmit);
-            }
-
-            const feedbackForm = document.getElementById('feedback-form');
-            if (feedbackForm) {
-                feedbackForm.addEventListener('submit', handleFeedbackSubmit);
             }
 
             const contactForm = document.getElementById('contact-form');
@@ -882,9 +854,54 @@
                 contactForm.addEventListener('submit', handleContactSubmit);
             }
 
-            // Shuru mein home page load karein
-            showPage('home-page');
-        });
+
+            if (success) {
+                form.reset();
+            }
+        }
+
+        // --- Dynamic Page Navigation ---
+        // Saare pages ko hide karke ek specific page dikhane ke liye function
+        function showPage(pageId) {
+                const allPages = document.querySelectorAll('.page-section');
+                allPages.forEach(page => {
+                    page.style.display = 'none';
+                });
+                const targetPage = document.getElementById(pageId);
+                if (targetPage) {
+                    targetPage.style.display = 'block';
+                }
+            }
+
+        // Saare navigation links aur buttons ke liye event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll('[data-page]').forEach(link => {
+                    link.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        const pageId = event.target.getAttribute('data-page');
+                        showPage(pageId);
+                    });
+                });
+
+                // Form listeners ko attach karein
+                const appointmentForm = document.getElementById('appointment-form');
+                if (appointmentForm) {
+                    appointmentForm.addEventListener('submit', handleAppointmentSubmit);
+                }
+
+                const feedbackForm = document.getElementById('feedback-form');
+                if (feedbackForm) {
+                    feedbackForm.addEventListener('submit', handleFeedbackSubmit);
+                }
+
+                const contactForm = document.getElementById('contact-form');
+                if (contactForm) {
+                    contactForm.addEventListener('submit', handleContactSubmit);
+                }
+
+                // Shuru mein home page load karein
+                showPage('home-page');
+            });
     </script>
 </body>
 
