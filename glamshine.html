@@ -749,7 +749,7 @@
         // Form submission ke liye helper function
         async function submitFormData(url, formData, successMessage, errorMessage) {
             try {
-                const response = await fetch(url, { // Yahan par 'url' parameter use kiya gaya hai
+                const response = await fetch('https://glamshine.onrender.com', { // Yahan par 'url' parameter use kiya gaya hai
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
