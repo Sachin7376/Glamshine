@@ -28,7 +28,6 @@ mongoose.connect(mongoURI)
     .catch(err => console.error('MongoDB connection error:', err));
 
 // MongoDB schemas aur models define karein
-// (Baaki ka code same rahega)
 const appointmentSchema = new mongoose.Schema({
     fullName: String,
     phone: String,
@@ -41,13 +40,15 @@ const appointmentSchema = new mongoose.Schema({
 const feedbackSchema = new mongoose.Schema({
     name: String,
     email: String,
-    feedback: String,
+    rating: Number,
+    comments: String,
     createdAt: { type: Date, default: Date.now }
 });
 
 const contactMessageSchema = new mongoose.Schema({
     name: String,
     email: String,
+    subject: String,
     message: String,
     createdAt: { type: Date, default: Date.now }
 });
@@ -56,6 +57,8 @@ const Appointment = mongoose.model('Appointment', appointmentSchema);
 const Feedback = mongoose.model('Feedback', feedbackSchema);
 const ContactMessage = mongoose.model('ContactMessage', contactMessageSchema);
 
+// API endpoints define karein
+// Appointment form data ko handle karein
 app.post('/api/appointments', async (req, res) => {
     try {
         const newAppointment = new Appointment(req.body);
@@ -67,7 +70,9 @@ app.post('/api/appointments', async (req, res) => {
     }
 });
 
-app.post('/api/feedback', async (req, res) => {
+// Feedback form data ko handle karein
+// Naya endpoint '/api/feedbacks' joda gaya hai jo front-end se match karta hai
+app.post('/api/feedbacks', async (req, res) => {
     try {
         const newFeedback = new Feedback(req.body);
         await newFeedback.save();
@@ -78,7 +83,9 @@ app.post('/api/feedback', async (req, res) => {
     }
 });
 
-app.post('/api/contact', async (req, res) => {
+// Contact form data ko handle karein
+// Naya endpoint '/api/contactmessages' joda gaya hai jo front-end se match karta hai
+app.post('/api/contactmessages', async (req, res) => {
     try {
         const newContactMessage = new ContactMessage(req.body);
         await newContactMessage.save();
@@ -89,11 +96,12 @@ app.post('/api/contact', async (req, res) => {
     }
 });
 
+// Static files serve karne ke liye root route
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'glamshine.html'));
 });
 
 // Server ko start karein
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+    console.log(`Server http://localhost:${port} par chal raha hai`);
 });
